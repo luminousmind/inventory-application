@@ -1,8 +1,21 @@
-// const db = require("../database/queries");
+const querydb = require("../database/queries")
 
-// async function getItems(req, res) {
-//     const items = await db.getItems();
-//     console.log(items);
-// }
+const indexController = async (req, res) => {
+    let items;
 
-// module.exports = getItems();
+    try {
+        items = await querydb(
+            `
+                SELECT * FROM items;
+            `
+        );
+    } catch (err) {
+        console.error("Error fetching items:", err);
+        res.status(500).send("Internal server error");
+        return;
+    }
+
+    res.render("index", { items: items });
+};
+
+module.exports = indexController;

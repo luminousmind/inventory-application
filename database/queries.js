@@ -1,15 +1,11 @@
 const pool = require("./pool")
 
-async function getItem(item) {
+async function querydb(SQl) {
     const { rows } = await pool.query(
-        `
-                SELECT * FROM items;
-            `
+        SQl
     );
 
     return rows;
 }
 
-module.exports = {
-    getItem,
-};
+module.exports = querydb;
